@@ -2,9 +2,9 @@ package org.sinmetal.mlapi;
 
 import com.google.api.services.bigquery.model.TableRow;
 import com.google.cloud.dlp.v2beta1.DlpServiceClient;
+import com.google.gson.Gson;
 import com.google.privacy.dlp.v2beta1.*;
 import org.apache.beam.sdk.transforms.DoFn;
-import org.codehaus.jackson.map.ObjectMapper;
 
 import java.util.Arrays;
 import java.util.List;
@@ -16,8 +16,6 @@ public class DataLossPreventionFn extends DoFn<TableRow, TableRow> {
 
     @ProcessElement
     public void processElement(ProcessContext c) {
-        ObjectMapper m = new ObjectMapper();
-
         String message = c.element().get("Body").toString();
         logger.info("hoge-message=" + message);
 
@@ -43,7 +41,8 @@ public class DataLossPreventionFn extends DoFn<TableRow, TableRow> {
 
             List<InspectResult> resultsList = response.getResultsList();
 
-            String json = m.writeValueAsString(resultsList);
+            Gson gson = new Gson();
+            String json = gson.toJson(resultsList);
             TableRow row = new TableRow();
             row.put("DLPResponse", json);
             logger.info("dlp-response=" + json);

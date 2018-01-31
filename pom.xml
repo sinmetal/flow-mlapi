@@ -401,12 +401,12 @@
     <dependency>
       <groupId>com.google.api</groupId>
       <artifactId>gax-grpc</artifactId>
-      <version>0.20.0</version>
+      <version>1.16.0</version>
     </dependency>
     <dependency>
       <groupId>com.google.protobuf</groupId>
       <artifactId>protobuf-java</artifactId>
-      <version>3.2.0</version>
+      <version>3.5.1</version>
     </dependency>
 
   </dependencies>
